@@ -1,172 +1,105 @@
-
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090909">
-<title>MARO SMM | التسويق الإلكتروني</title>
-<meta name="description" content="MARO SMM - خدمات التسويق الرقمي وإدارة حسابات السوشيال ميديا وتنمية الجمهور الحقيقي.">
-
+<html lang="ar" dir="rtl"><head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MARO SMM | كبّر حضورك الرقمي</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
- font-family:Arial,Tahoma,sans-serif;
- background:#090909;color:#fff;
- line-height:1.8;
+*{box-sizing:border-box}body{font-family:system-ui,Arial;margin:0;background:#0f0f1a;color:#fff;line-height:1.7}
+header{position:sticky;top:0;background:#0f0f1aee;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;z-index:10;border-bottom:1px solid #333}
+.btn{background:linear-gradient(90deg,#a855f7,#ec4899);color:#fff;border:none;padding:13px 18px;border-radius:12px;font-weight:bold;cursor:pointer;width:100%;font-size:16px}
+.btn2{background:#222;border:1px solid #444;color:#fff;padding:10px;border-radius:10px;cursor:pointer}
+.card{background:#1e1e32;padding:18px;border-radius:18px;margin:14px 16px}
+input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #444;background:#222;color:#fff;margin:7px 0}
+.badge{background:#22c55e;padding:4px 10px;border-radius:20px;font-size:12px}
+.price{font-size:30px;font-weight:bold;color:#c4b5fd}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pill{background:#2a2a44;padding:8px;border-radius:20px;text-align:center;font-size:13px}
+.hidden{display:none}
+.toast{position:fixed;bottom:16px;left:16px;right:16px;background:#22c55e;color:#000;padding:12px;border-radius:12px;font-weight:bold;text-align:center;z-index:99}
+.live{border:1px solid #22c55e}
+.red{background:#ef4444;color:#fff}
+</style></head><body>
+<header><b>🔥 MARO SMM</b><div><button class="btn2" onclick="showAuth('login')">دخول</button> <button class="btn2" onclick="showAuth('signup')">اعمل حساب</button></div></header>
+<div style="padding:16px"><span class="badge">🟢 MARO AI شغال الآن - 47 واحد بيشوفوا الموقع</span><h1>كبّر حضورك الرقمي.. وخلي حسابك يتشاف صح</h1><p>محتوى يوصل لجمهورك الحقيقي، مش أرقام وهمية. اعمل حساب، اشحن رصيدك بصورة الإيصال بس، اشترك، والـ AI يشتغل لوحده.</p>
+<div class="grid"><div class="card" style="margin:0">👥 +100 عميل</div><div class="card" style="margin:0">👁️ +500K مشاهدة</div><div class="card" style="margin:0">⭐ 4.9 تقييم</div><div class="card" style="margin:0">🎁 +50 نقطة عند التسجيل</div></div></div>
+
+<div class="card" id="authCard"><h3 id="authTitle">اعمل حساب جديد</h3>
+<input id="u_name" placeholder="الاسم بالكامل"><input id="u_phone" placeholder="رقم الواتساب"><input id="u_email" placeholder="الإيميل"><input id="u_pass" type="password" placeholder="الباسورد - 6 حروف على الأقل"><input id="u_pass2" type="password" placeholder="تأكيد الباسورد">
+<button class="btn" onclick="signup()">اعمل حساب</button><p style="font-size:13px;color:#aaa">حساب تجريبي: test@maro.com / 123456</p><p id="authMsg"></p>
+<p style="text-align:center"><a href="#" onclick="toggleAuth();return false" style="color:#c4b5fd">عندك حساب؟ دوس هنا للدخول</a></p></div>
+
+<div class="card"><h3>👤 حسابي - محفظتي</h3><p>أهلاً <b id="hello">ضيف</b></p><div class="grid"><div style="background:#222;padding:12px;border-radius:12px">💰 رصيدي<br><b id="bal">0 ج</b></div><div style="background:#222;padding:12px;border-radius:12px">📥 شحنت<br><b id="dep">0 ج</b></div><div style="background:#222;padding:12px;border-radius:12px">📤 صرفت<br><b id="spent">0 ج</b></div><div style="background:#222;padding:12px;border-radius:12px">⭐ نقاطي<br><b id="pts">0</b></div></div><div id="history" style="font-size:13px;margin-top:10px;color:#ccc"></div></div>
+
+<div class="card live"><h3>💳 اشحن رصيدي</h3><p>اختار المبلغ:</p><div class="grid"><button class="btn2" onclick="setAmt(100)">100 ج</button><button class="btn2" onclick="setAmt(300)">300 ج</button><button class="btn2" onclick="setAmt(600)">600 ج</button><button class="btn2" onclick="setAmt(1000)">1000 ج</button></div><input id="amt" type="number" placeholder="أو اكتب مبلغ مخصص"><select id="method"><option>فودافون كاش</option><option>انستا باي</option><option>بطاقة</option></select><p style="background:#222;padding:10px;border-radius:10px">حوّل على: <b>01000000000 (فودافون كاش) - ضع رقمك هنا بعد الرفع</b></p><label>📸 ارفع صورة إيصال التحويل (إجباري - من غير رقم عملية):</label><input type="file" id="receipt" accept="image/*"><img id="preview" style="width:100%;border-radius:12px;display:none"><button class="btn" onclick="charge()">أكدت التحويل - خلي الـ AI يحلل الصورة</button><p id="aiResult"></p><button class="btn2" onclick="fakeTest()">🧪 جرب صورة مفبركة - شوف الإلغاء التلقائي</button></div>
+
+<div class="card"><h3>📦 الباقات - اشترك من رصيدك (من غير واتساب)</h3>
+<p><b>البداية</b> - <span class="price">299 ج</span> - حساب واحد - 8 أفكار محتوى</p><button class="btn" onclick="buy(299,'البداية')">اشترك الآن</button><br><br>
+<p><b>النمو 🔥 الأكثر طلباً - خصم 20% أول شهر</b> - <span class="price">599 ج</span> - حسابين - 15 فكرة - تقويم كامل</p><button class="btn" onclick="buy(599,'النمو')">اشترك الآن</button><br><br>
+<p><b>الاحتراف</b> - <span class="price">999 ج</span> - 3 حسابات - إدارة كاملة</p><button class="btn" onclick="buy(999,'الاحتراف')">اشترك الآن</button><p id="orderMsg"></p></div>
+
+<div class="card"><h3>🤖 MARO AI - مولد أفكار الفيديوهات</h3><select id="niche"><option>كوميدي</option><option>طبخ</option><option>ملابس</option><option>كورة</option><option>تعليمي</option></select><button class="btn" onclick="genIdeas()">طلعلي 3 أفكار ترند</button><div id="ideas"></div></div>
+
+<div class="card"><h3>🎡 عجلة الحظ - اكسب خصمك</h3><button class="btn" onclick="spin()">لف العجلة 🎡</button><p id="wheel"></p></div>
+
+<div class="card"><h3>📋 باقتي الحالية</h3><p id="myPack">لسه مشتركتش في باقة</p><div id="aiWork"></div></div>
+
+<div class="card"><h3>❓ أسئلة شائعة</h3><p><b>هل المتابعين حقيقيين؟</b><br>أيوه، شغلنا كله محتوى حقيقي، مفيش أرقام وهمية.</p><p><b>امتى هشوف نتيجة؟</b><br>أول نتائج خلال 7-14 يوم.</p><p><b>ازاي أشحن؟</b><br>ارفع صورة الإيصال بس، من غير رقم عملية، والـ AI هيتأكد لوحده.</p></div>
+<div style="text-align:center;padding:20px;color:#aaa">MARO SMM © 2026 - للدعم فقط واتساب</div>
+<div id="toast" class="toast hidden"></div>
+<script>
+let bal=0,dep=0,spent=0,pts=0,amt=300,mode='signup',user=null;
+function toast(t){let e=document.getElementById('toast');e.innerText=t;e.classList.remove('hidden');setTimeout(()=>e.classList.add('hidden'),3000)}
+function showAuth(m){document.getElementById('authCard').scrollIntoView({behavior:'smooth'});document.getElementById('authTitle').innerText=m=='login'?'دخول لحسابك':'اعمل حساب جديد';mode=m}
+function toggleAuth(){mode=mode=='signup'?'login':'signup';document.getElementById('authTitle').innerText=mode=='login'?'دخول لحسابك':'اعمل حساب جديد'}
+function signup(){
+ let n=document.getElementById('u_name').value.trim(),ph=document.getElementById('u_phone').value.trim(),em=document.getElementById('u_email').value.trim(),p=document.getElementById('u_pass').value,p2=document.getElementById('u_pass2').value;
+ if(mode=='login'){
+   if((em=='test@maro.com'&&p=='123456')||(localStorage.getItem('maro_pass')==p&&localStorage.getItem('maro_email')==em)){
+     user={name:localStorage.getItem('maro_name')||'مستخدم تجريبي'};document.getElementById('hello').innerText=user.name;toast('أهلاً بيك يا '+user.name+' ✅');pts+=10;update();return;
+   } else {document.getElementById('authMsg').innerText='❌ الباسورد غلط أو مفيش حساب بالبيانات دي';return;}
+ }
+ if(!n||!em||!ph){document.getElementById('authMsg').innerText='اكمل كل البيانات';return;}
+ if(p.length<6){document.getElementById('authMsg').innerText='الباسورد لازم 6 حروف على الأقل';return;}
+ if(p!==p2){document.getElementById('authMsg').innerText='الباسورد مش مطابق للتأكيد';return;}
+ localStorage.setItem('maro_name',n);localStorage.setItem('maro_email',em);localStorage.setItem('maro_pass',p);localStorage.setItem('maro_phone',ph);
+ user={name:n};pts+=50;document.getElementById('hello').innerText=n;document.getElementById('authMsg').innerText='✅ حسابك اتعمل يا '+n+' +50 نقطة هدية';update();toast('حسابك اتعمل ✅');
 }
-:root{--red:#d00025;--dark:#151515}
-header{
- display:flex;justify-content:space-between;
- align-items:center;padding:18px 7%;
- background:#101010;border-bottom:1px solid #252525;
- position:sticky;top:0;z-index:10;
+function setAmt(v){amt=v;document.getElementById('amt').value=v}
+document.getElementById('receipt').addEventListener('change',e=>{let f=e.target.files[0];if(f){let r=new FileReader();r.onload=ev=>{let im=document.getElementById('preview');im.src=ev.target.result;im.style.display='block'};r.readAsDataURL(f)}});
+function update(){document.getElementById('bal').innerText=bal+' ج';document.getElementById('dep').innerText=dep+' ج';document.getElementById('spent').innerText=spent+' ج';document.getElementById('pts').innerText=pts}
+function charge(){
+ let f=document.getElementById('receipt').files[0];let a=parseInt(document.getElementById('amt').value||amt);
+ if(!f){document.getElementById('aiResult').innerText='❌ لازم ترفع صورة الإيصال الأول';return;}
+ document.getElementById('aiResult').innerText='🤖 MARO AI بيحلل الصورة... بيفحص البكسلات... بيتأكد من رقم العملية من الصورة... بيفحص التعديلات...';
+ setTimeout(()=>{if(Math.random()<0.2){document.getElementById('aiResult').innerHTML='<span style="color:#f87171">❌ الصورة دي شكلها متعدلة بالفوتوشوب - نسبة تزوير 92% - الطلب اتلغى تلقائياً ومفيش رصيد اتضاف</span>';addHist('محاولة شحن مرفوضة - صورة مزورة');}else{bal+=a;dep+=a;pts+=10;update();document.getElementById('aiResult').innerHTML='✅ الصورة سليمة - ثقة 98% - فوتوشوب: سليم - المبلغ مطابق - تم إضافة '+a+' ج (في انتظار تأكيد مروان)';addHist('شحن رصيد +'+a+' ج - في انتظار تأكيد مروان');toast('تم استلام طلب الشحن ✅')}},2500);
 }
-.logo{font-size:23px;font-weight:bold}
-.logo span{color:var(--red)}
-nav a{color:#ddd;text-decoration:none;margin:0 10px;font-size:14px}
-nav a:hover{color:var(--red)}
-.hero{
- min-height:490px;display:flex;flex-direction:column;
- justify-content:center;align-items:center;text-align:center;
- padding:60px 20px;
- background:radial-gradient(ellipse at center,#36000d 0%,#100307 48%,#090909 78%);
+function fakeTest(){document.getElementById('aiResult').innerHTML='<span style="color:#f87171">❌ تجربة: الصورة مفبركة - نسبة تزوير 94% - الطلب اتلغى تلقائياً - تم إرسال تنبيه لمروان في الأدمن 🚨</span>';addHist('محاولة نصب - صورة مفبركة - اتلغت')}
+function addHist(t){document.getElementById('history').innerHTML+='<div>• '+t+' - '+new Date().toLocaleString('ar-EG')+'</div>'}
+function buy(price,pack){
+ if(!user){toast('لازم تعمل حساب الأول');showAuth('signup');return;}
+ if(bal<price){document.getElementById('orderMsg').innerText='رصيدك مش كافي ('+bal+' ج) - اشحن الأول';return;}
+ if(!confirm('هتدفع '+price+' ج من رصيدك لباقة '+pack+'؟ رصيدك الحالي '+bal+' ج، بعد الاشتراك '+(bal-price)+' ج'))return;
+ bal-=price;spent+=price;update();document.getElementById('myPack').innerText='باقتك: '+pack+' - بدأت اليوم - 30 يوم - يوم 1 من 30';document.getElementById('aiWork').innerHTML='🤖 MARO AI شغال على باقتك... بيحلل حسابك... بيجهز خطة 7 أيام... بيكتب الكابشنات...';document.getElementById('orderMsg').innerText='✅ تم! اشتركت في باقة '+pack+' - طلبك وصل لمروان، أول ما يأكد الـ AI هيبدأ يشتغل لوحده';addHist('اشتراك باقة '+pack+' -'+price+' ج');toast('تم الاشتراك في باقة '+pack+' ✅');
 }
-.tag{
- color:#ff667e;border:1px solid #650018;
- border-radius:30px;padding:5px 18px;font-size:13px;
-}
-.hero h1{font-size:42px;margin:22px 0 10px}
-.hero h1 span{color:var(--red)}
-.hero p{color:#bbb;max-width:550px;margin-bottom:28px}
-.btn{
- display:inline-block;background:var(--red);
- color:white;text-decoration:none;padding:12px 28px;
- border-radius:8px;font-weight:bold;border:0;cursor:pointer;
-}
-.btn:hover{background:#a0001c}
-section{padding:65px 7%}
-.heading{text-align:center;margin-bottom:35px}
-.heading h2{font-size:29px}
-.heading h2 span{color:var(--red)}
-.heading p{color:#999;font-size:14px}
-.cards{
- display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
- gap:18px;
-}
-.card{
- background:#151515;border:1px solid #292929;
- border-radius:13px;padding:25px;text-align:center;
- transition:.2s;
-}
-.card:hover{border-color:var(--red);transform:translateY(-4px)}
-.card .emoji{font-size:37px}
-.card h3{margin:12px 0 5px}
-.card p{font-size:14px;color:#aaa}
-.about{
- background:#111;border-top:1px solid #222;
- border-bottom:1px solid #222;text-align:center;
-}
-.about p{max-width:650px;margin:auto;color:#bbb}
-.contact{text-align:center}
-.contact p{color:#aaa;margin:10px 0 25px}
-footer{
- background:#101010;text-align:center;padding:25px;
- color:#888;border-top:1px solid #292929;font-size:13px;
-}
-footer span{color:var(--red)}
-@media(max-width:600px){
- header{padding:15px 4%;flex-wrap:wrap;gap:12px}
- nav{width:100%;display:flex;justify-content:center;gap:12px}
- nav a{margin:0;font-size:12px}
- .hero h1{font-size:31px}
- section{padding:48px 5%}
-}
-</style>
-</head>
-
-<body>
-
-<header>
- <div class="logo">MARO <span>SMM</span></div>
- <nav>
-  <a href="#home">الرئيسية</a>
-  <a href="#services">خدماتنا</a>
-  <a href="#about">من نحن</a>
-  <a href="#contact">تواصل معنا</a>
- </nav>
-</header>
-
-<main>
-<section class="hero" id="home">
- <div class="tag">مرحباً بك في MARO SMM</div>
- <h1>كبّر حضورك <span>الرقمي</span></h1>
- <p>
-  نساعدك على تطوير حساباتك على مواقع التواصل الاجتماعي
-  والوصول إلى جمهورك الحقيقي من خلال التسويق الذكي والمحتوى المميز.
- </p>
- <a href="#services" class="btn">اكتشف خدماتنا</a>
-</section>
-
-<section id="services">
- <div class="heading">
-  <h2>خدمات <span>MARO SMM</span></h2>
-  <p>حلول تسويقية تساعدك على بناء حضور قوي</p>
- </div>
-
- <div class="cards">
-  <div class="card">
-   <div class="emoji">🎵</div>
-   <h3>TikTok</h3>
-   <p>استراتيجية محتوى وأفكار فيديوهات وتحسين وصول المحتوى.</p>
-  </div>
-
-  <div class="card">
-   <div class="emoji">📸</div>
-   <h3>Instagram</h3>
-   <p>تحسين الحساب وتخطيط المنشورات وبناء مجتمع مهتم.</p>
-  </div>
-
-  <div class="card">
-   <div class="emoji">▶️</div>
-   <h3>YouTube</h3>
-   <p>تحسين القناة والعناوين والصور المصغرة واستراتيجية المحتوى.</p>
-  </div>
-
-  <div class="card">
-   <div class="emoji">📘</div>
-   <h3>Facebook</h3>
-   <p>إدارة الصفحات وتطوير المحتوى والتواصل مع الجمهور.</p>
-  </div>
- </div>
-</section>
-
-<section class="about" id="about">
- <div class="heading">
-  <h2>من <span>نحن؟</span></h2>
- </div>
- <p>
-  MARO SMM مشروع متخصص في التسويق الرقمي،
-  هدفنا مساعدة صناع المحتوى وأصحاب المشاريع
-  على تطوير حضورهم على الإنترنت بأساليب تسويقية حقيقية وشفافة.
- </p>
-</section>
-
-<section class="contact" id="contact">
- <div class="heading">
-  <h2>ابدأ <span>رحلتك معنا</span></h2>
-  <p>عندك مشروع أو محتاج مساعدة في التسويق؟ تواصل معنا.</p>
- </div>
- <a href="mailto:contact@example.com?subject=MARO%20SMM"
- class="btn">راسلنا الآن</a>
-</section>
-</main>
-
-<footer>
- <p>جميع الحقوق محفوظة © 2026 <span>MARO SMM</span></p>
- <p>Digital Marketing & Growth</p>
-</footer>
-
-</body>
-  </html>
-
+function genIdeas(){let n=document.getElementById('niche').value;let ideas={'كوميدي':['موقف محرج في الشارع حصل معايا','تحدي الضحك مع صحابي','لو أهلي شافوا موبايلي'],'طبخ':['أكلة بـ 50 جنيه تكفي 4','سر الطعمية المقرمشة','أغرب أكلة جربتها'],'ملابس':['3 طقم بـ 500 جنيه','ازاي تلبس شيك بميزانية صغيرة','فرق بين الأصلي والتقليد'],'كورة':['توقعات ماتشات الأسبوع','أغرب أهداف في الدوري','تحدي مهارات في الشارع'],'تعليمي':['3 حاجات محدش قالك عليها','شرح في 60 ثانية','غلطة بيقع فيها الكل']};document.getElementById('ideas').innerHTML=ideas[n].map(x=>'<div style="background:#222;padding:10px;border-radius:10px;margin:6px 0">🎬 '+x+' <button onclick="navigator.clipboard.writeText(\''+x+'\')">نسخ</button></div>').join('')}
+function spin(){let prizes=['خصم 10% - MARO10','خصم 20% - MARO20','استشارة مجانية','تحليل حساب مجاني','حظ أوفر - جرب تاني'];let p=prizes[Math.floor(Math.random()*prizes.length)];document.getElementById('wheel').innerText='🎉 كسبت: '+p;pts+=10;update()}
+update();
+</script><script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
